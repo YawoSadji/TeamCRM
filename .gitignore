@@ -1,0 +1,26 @@
+#virtual environment files
+venv/
+.venv/
+env/
+.env/
+/virt
+
+#Python cache files
+__pycache__/
+*.py[cod]
+
+#local settings
+local_settings.py
+
+#database files
+db.sqlite3
+
+#Django migrations
+*/migrations/*.py
+*/migrations/*.pyc
+
+#other sensitive files
+*.log
+*.pot
+*.pyc
+*.pyo
