@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
+from .models import Record
 # Create your views here.
 
 
@@ -20,7 +21,9 @@ def home(request):
 
 @login_required
 def loggedIn(request):
-    return render(request, 'loggedIn.html', {})
+    messages.success(request, "Welcome " + request.user.first_name)
+    records = Record.objects.filter(user=request.user)
+    return render(request, 'loggedIn.html', {'records':records})
 
 
 def logout_user(request):
