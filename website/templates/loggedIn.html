@@ -3,11 +3,12 @@
 {% if user.is_authenticated %}
     <br/>
     <div class="container-fluid">
-        <h3>Your contacts List</h3>
     </div>
     {% if records %}
         {% for record in records %}
-        <table class="table">
+        <h3>Your contacts List</h3>
+        <br/>
+        <table class="table table-success table-striped">
             <thead>
               <tr>
                 <th scope="col">Name</th>
@@ -34,6 +35,10 @@
             </tbody>
           </table>
         {% endfor %}
+    {% else %}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>No records found</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     {% endif %}
 {% endif %}
 {% endblock %}

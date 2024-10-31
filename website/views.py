@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from .models import Record
+from .forms import RecordForm
 # Create your views here.
 
 
@@ -25,6 +26,20 @@ def loggedIn(request):
     records = Record.objects.filter(user=request.user)
     return render(request, 'loggedIn.html', {'records':records})
 
+@login_required
+def addRecord(request):
+    if request == "POST":
+        form = RecordForm(request.POST or None)
+        if form.is_valid():
+            record = form.save(commit=False)
+            record.user = request.user # logged-in user's record here
+            record.save()
+            messages.success(request, 'Record saved successfully!')
+        else:
+            messages.success(request, "Error, Please try again.")
+    else:
+        form = RecordForm
+    return render(request, 'addRecord.html', {'form':form})
 
 def logout_user(request):
     logout(request)
