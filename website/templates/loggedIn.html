@@ -2,9 +2,11 @@
 {% block content %}
 {% if user.is_authenticated %}
     <br/>
-    <div class="container-fluid">
+    <h3>Your Contact List</h3>
+    <br/>
+    <div class="col-md-4">
+      <a href="{% url 'export_to_csv' %}" class="btn btn-success">Download list to CSV file</a>
     </div>
-    <h3>Your contacts List</h3>
     <br/>
     {% if records %}
         <table class="table table-success table-striped">

@@ -4,6 +4,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from .models import Record
 from .forms import RecordForm
+from django.http import HttpResponse
+import csv
 # Create your views here.
 
 
@@ -71,6 +73,16 @@ def update_record(request, record_id):
         form = RecordForm(instance=record)
     return render(request, 'updateRecord.html', {'form':form, 'record':record})
     
+def export_to_csv(request):
+    response = HttpResponse(content_type = 'text/csv')
+    response['Content-Disposition']='attachment; filename="contacts.csv"'
+    writer = csv.writer(response)
+    writer.writerow(['ID', 'First Name', 'Last Name', 'Email', 'Phone', 'Address', 'City', 'State', 'Zipcode'])
+    records = Record.objects.all()
+    for record in records:
+        writer.writerow([record.id, record.first_name, record.last_name, record.email, record.phone, record.address, record.city, record.state, record.zipcode])
+    return response
+
 
 def logout_user(request):
     logout(request)
