@@ -4,10 +4,8 @@
     <br/>
     <div class="container-fluid">
     </div>
-    {% if records %}
-        {% for record in records %}
-        <h3>Your contacts List</h3>
-        <br/>
+    <h3>Your contacts List</h3>
+    <br/>
         <table class="table table-success table-striped">
             <thead>
               <tr>
@@ -22,6 +20,8 @@
               </tr>
             </thead>
             <tbody>
+    {% if records %}
+        {% for record in records %}
               <tr>
                 <td>{{record.first_name}} {{record.last_name}}</td>
                 <td>{{record.email}}</td>
@@ -32,13 +32,13 @@
                 <td>{{record.zipcode}}</td>
                 <td>{{record.id}}</td>
               </tr>
-            </tbody>
-          </table>
         {% endfor %}
     {% else %}
         <div class="alert alert-warning alert-dismissible fade show" role="alert">
         <strong>No records found</strong>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     {% endif %}
+            </tbody>
+        </table>
 {% endif %}
 {% endblock %}
