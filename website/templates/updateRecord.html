@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block content %}
+<br/>
+<div class="container">
+    <p><a href="{% url 'loggedIn' %}" class="link-warning">Back to records</a></p>
+</div>
+<form class="row g-3" method="POST" action="{% url 'update_record' record.id %}">
+    {% csrf_token %}
+    <div class="col-md-6">
+    <input type="text" class="form-control" name="first_name" placeholder="First Name" value="{{record.first_name}}" required>
+    </div>
+    <div class="col-md-6">
+    <input type="text" class="form-control" name="last_name" placeholder="Last Name" value="{{record.last_name}}" required>
+    </div>
+    <div class="col-md-6">
+    <input type="email" class="form-control" name="email" placeholder="Email" value="{{record.email}}" required>
+    </div>
+    <div class="col-md-6">
+    <input type="tel" class="form-control" name="phone" placeholder="Phone number" value="{{record.phone}}" required>
+    </div>
+    <div class="col-md-6">
+    <input type="text" class="form-control" name="address" placeholder="Address" value="{{record.address}}">
+    </div>
+    <div class="col-md-6">
+    <input type="text" class="form-control" name="city" placeholder="City" value="{{record.city}}">
+    </div>
+    <div class="col-md-4">
+    <input type="text" class="form-control" name="state" placeholder="state" value="{{record.state}}">
+    </div>
+    <div class="col-md-2">
+    <input type="text" class="form-control" name="zipcode" placeholder="Zipcode" value="{{record.zipcode}}">
+    </div>
+    <div class="col-12">
+    <button type="submit" class="btn" style="background-color: #417690; color: #f5dd5d;">Update Contact</button>
+    </div>
+</form>
+{% endblock %}

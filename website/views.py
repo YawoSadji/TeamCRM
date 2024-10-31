@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
@@ -16,7 +16,7 @@ def home(request):
             login(request, user)
             return redirect('loggedIn')
         else:
-            messages.success(request, "Error, Please try again.")
+            messages.error(request, "Error, Please try again.")
     return render(request, 'home.html', {})
 
 
@@ -36,10 +36,41 @@ def addRecord(request):
             record.save()
             messages.success(request, 'Record saved successfully!')
         else:
-            messages.success(request, "Error, Please try again.")
+            messages.error(request, "Error, Please try again.")
     else:
         form = RecordForm
     return render(request, 'addRecord.html', {'form':form})
+
+@login_required
+def single_record(request, record_id):
+    record = get_object_or_404(Record, id=record_id) #will be returning 404 if record not found
+    return render(request, 'singleRecord.html', {'record':record})
+
+
+@login_required
+def delete_record(request, record_id):
+    record = get_object_or_404(Record, id=record_id)
+    if request.method == "POST":
+        record.delete()
+        return redirect('loggedIn')
+
+@login_required
+def update_record(request, record_id):
+    record = get_object_or_404(Record, id=record_id)
+    if request.method == "POST":
+        form = RecordForm(request.POST, instance=record)
+        if form.is_valid():
+            record = form.save(commit=False)
+            record.user = request.user
+            record.save()
+            messages.success(request, 'Record updated successfully!')
+            return redirect('loggedIn')
+        else:
+            messages.error(request, "Error, Please try again.")
+    else:
+        form = RecordForm(instance=record)
+    return render(request, 'updateRecord.html', {'form':form, 'record':record})
+    
 
 def logout_user(request):
     logout(request)

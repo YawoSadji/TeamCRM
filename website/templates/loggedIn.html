@@ -6,6 +6,7 @@
     </div>
     <h3>Your contacts List</h3>
     <br/>
+    {% if records %}
         <table class="table table-success table-striped">
             <thead>
               <tr>
@@ -20,10 +21,9 @@
               </tr>
             </thead>
             <tbody>
-    {% if records %}
         {% for record in records %}
               <tr>
-                <td>{{record.first_name}} {{record.last_name}}</td>
+                <td><a href="{% url 'single_record' record.id%}">{{record.first_name}} {{record.last_name}}</a></td>
                 <td>{{record.email}}</td>
                 <td>{{record.phone}}</td>
                 <td>{{record.address}}</td>

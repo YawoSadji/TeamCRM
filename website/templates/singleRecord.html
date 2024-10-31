@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+{% if user.is_authenticated %}
+    <br/>
+    <div class="container">
+        <p><a href="{% url 'loggedIn' %}" class="link-warning">Back to records</a></p>
+    </div>
+    <br/>
+    <ul class="list-group">
+        <li class="list-group-item col-md-2"><b>ID</b>: {{record.id}}</li>
+        <li class="list-group-item col-md-4"><b>First name</b>: {{record.first_name}}</li>
+        <li class="list-group-item col-md-4"><b>Last name</b>: {{record.last_name}}</li>
+        <li class="list-group-item col-md-4"><b>Email</b>: {{record.email}}</li>
+        <li class="list-group-item col-md-4"><b>Phone</b>: {{record.phone}}</li>
+        <li class="list-group-item col-md-4"><b>Address</b>: {{record.address}}</li>
+        <li class="list-group-item col-md-4"><b>City</b>: {{record.city}}</li>
+        <li class="list-group-item col-md-4"><b>State</b>: {{record.state}}</li>
+        <li class="list-group-item col-md-4"><b>Zipcode</b>: {{record.zipcode}}</li>
+    </ul>
+    <br/>
+    <div class="btn-group" role="group">
+    <form method="POST" action="{% url 'update_record' record.id %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-outline-warning">Edit</button>
+    </form>
+    <form method="POST" action="{% url 'delete_record' record.id %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-outline-danger">Delete</button>
+    </form>
+    </div>
+{% endif %}
+{% endblock %}

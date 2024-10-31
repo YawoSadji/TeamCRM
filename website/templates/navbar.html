@@ -10,9 +10,11 @@
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="{% url 'logout' %}">Logout</a>
                 </li>
+                {% if request.resolver_match.view_name != 'addRecord' %}
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="{% url 'addRecord' %}">Add Record</a>
                 </li>
+                {% endif %}
             </ul>
         {% endif %}
       </div>
