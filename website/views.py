@@ -28,7 +28,7 @@ def loggedIn(request):
 
 @login_required
 def addRecord(request):
-    if request == "POST":
+    if request.method == "POST":
         form = RecordForm(request.POST or None)
         if form.is_valid():
             record = form.save(commit=False)
