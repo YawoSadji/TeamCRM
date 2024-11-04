@@ -10,4 +10,5 @@ urlpatterns = [
     path('delete_record/<int:record_id>', views.delete_record, name='delete_record'),
     path('update_record/<int:record_id>', views.update_record, name='update_record'),
     path('export_to_csv/', views.export_to_csv, name='export_to_csv'),
+    path('search_record/', views.search_record, name='search_record'),
 ]

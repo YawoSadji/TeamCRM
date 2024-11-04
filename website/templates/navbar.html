@@ -16,6 +16,11 @@
                 </li>
                 {% endif %}
             </ul>
+                <form class="d-flex" method="POST" action="{% url 'search_record' %}">
+                  {% csrf_token %}
+                  <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" value="{{search}}" name="search">
+                  <button class="btn btn-light" type="submit">Search</button>
+                </form>
         {% endif %}
       </div>
     </div>

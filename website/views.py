@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
+from django.db.models import Q
 from .models import Record
 from .forms import RecordForm
 from django.http import HttpResponse
@@ -82,6 +83,18 @@ def export_to_csv(request):
     for record in records:
         writer.writerow([record.id, record.first_name, record.last_name, record.email, record.phone, record.address, record.city, record.state, record.zipcode])
     return response
+
+@login_required
+def search_record(request):
+    if request.method == "POST":
+        search = request.POST['search']
+        results = Record.objects.filter(
+            Q(first_name__icontains=search) | Q(last_name__icontains=search),
+            user=request.user
+            )
+        return render(request, 'search.html', {'search': search, 'results':results})
+    else:
+        return redirect('loggedIn')
 
 
 def logout_user(request):
