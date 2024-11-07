@@ -1,15 +1,19 @@
-Create a virtual environment
+# TeamCRM
+TeamCRM is a contact management website for small teams.
+
+## Installation
+1.Create a virtual environment
     python -m venv <virtual environment name>
 Activate virtual environment
     for mac:   source <virtual environment name>/bin/activate
     for windows: source <virtual environment name>/Scripts/activate
-Install dependencies
+2.Install dependencies(use pip package manager)
     pip install django
     (using mysql as database here)
     pip install mysql
     pip install mysql-connector-python
     Install mysql installer : https://dev.mysql.com/downloads/installer/
-Create database
+3.Create database
     create a file (crmdb.py for example)
     Inside the file, import mysql.connector
     add your configuration:
@@ -20,10 +24,13 @@ Create database
     )
     cursor = connection.cursor()
     cursor.execute("CREATE DATABASE your_database_name")
-run python <filename> (python crmdb.py for example)
+4.run python <filename> (python crmdb.py for example)
 
-Run python manage.py migrate to apply migrations
-Create a superuser to manage users in django admin portal
+5.Run python manage.py migrate to apply migrations
+6.Create a superuser to manage users in django admin portal
     for windows: winpty python manage.py createsuperuser
     for mac: python manage.py createsuperuser
-Run the website: python manage.py runserver
+7.Run the website: python manage.py runserver
+
+##License
+https://choosealicense.com/licenses/mit/

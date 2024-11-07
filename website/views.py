@@ -68,8 +68,6 @@ def update_record(request, record_id):
             record.save()
             messages.success(request, 'Record updated successfully!')
             return redirect('loggedIn')
-        else:
-            messages.error(request, "Error, Please try again.")
     else:
         form = RecordForm(instance=record)
     return render(request, 'updateRecord.html', {'form':form, 'record':record})
